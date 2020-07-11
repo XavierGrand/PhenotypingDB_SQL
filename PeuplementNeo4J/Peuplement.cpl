@@ -1,0 +1,11 @@
+CREATE (sp:Species:Plant {name:'Arabidopsis thaliana', definition: 'Arabidopsis thaliana (L.) Heynh.'});
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM 'file:///Data_projet_entete.csv' AS geno_pheno
+MERGE (g : Genotype { name : geno_pheno.Genotype})
+
+CREATE (g) -[:IS_GENOTYPE_OF]-> (sp);
+
+USING PERIODIC COMMIT
+LOAD CSV WITH HEADERS FROM 'file:///Ontology.csv' AS terms
+CREATE (t:Term {qualifier : terms.qualifier, label : terms.label, secondary_qualifier : terms.secondary_qualifier});

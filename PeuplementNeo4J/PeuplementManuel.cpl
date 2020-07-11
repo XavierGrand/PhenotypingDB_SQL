@@ -1,0 +1,5 @@
+CREATE (geno1:Genotype:WT {name : 'Col_0', definition: 'Columbia'}) -[:of]-> (sp:Species {name: 'Arabidopsis thaliana', definition: 'Arabidopsis thaliana (L.) Heynh.'}),
+(geno2:Genotype:mutated {name:'sex1', definition: 'Mutant on SEX1 gene'}) -[:of]-> (sp),
+(geno3:Genotype:mutated {name:'nrt', definition: 'Mutant on NRT gene'}) -[:of]-> (sp),
+(geno4:Genotype:mutated {name:'pgm', definition: 'Mutant on PGM gene'}) -[:of]-> (sp)
+RETURN sp, geno1, geno2, geno3, geno4

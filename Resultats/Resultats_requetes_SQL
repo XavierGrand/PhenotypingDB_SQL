@@ -1,0 +1,67 @@
+Resutlats des exemples de requetes sur la base de donnees :
+
+
+** requete : SELECT * FROM Seedling 
+('A1_1', 'Col_0', 'Arabidopsis thaliana')
+('A1_2', 'Col_0', 'Arabidopsis thaliana')
+('A1_3', 'Col_0', 'Arabidopsis thaliana')
+('A1_4', 'Col_0', 'Arabidopsis thaliana')
+('A1_5', 'Col_0', 'Arabidopsis thaliana')
+('A1_6', 'Col_0', 'Arabidopsis thaliana')
+('A1_7', 'Col_0', 'Arabidopsis thaliana')
+('A1_8', 'Col_0', 'Arabidopsis thaliana')
+('A1_9', 'Col_0', 'Arabidopsis thaliana')
+('A1_10', 'Col_0', 'Arabidopsis thaliana')
+
+** requete : SELECT * FROM Ontologies 
+(1, 'root', 'PO_0009005')
+(2, 'primary root', 'PO_0020127')
+(3, 'lateral root', 'PO_0020121')
+(4, 'shoot', 'PO_004545')
+(5, 'leaf', 'PO_0025034')
+(6, 'length', 'PATO_0000122')
+(7, 'area', 'PATO_00001323')
+(8, 'distance', 'PATO_0000040')
+(9, 'hypocotyl', 'PO_0020100')
+(10, 'Chlorophyll', 'OMIT_0004055')
+
+** requete : SELECT s.species, count(*) from Seedling s group by s.species 
+Nombre de plantules totales :
+('Arabidopsis thaliana', 735)
+
+** requete : SELECT genotype, count(*) from Seedling group by genotype
+Nombre de plantules de chaque genotype :
+('Col_0', 186)
+('nrt', 228)
+('pgm', 159)
+('sex1', 162)
+
+** requete : SELECT avg(Value), Feature_Id from Feature group by Feature_Id 
+Moyenne des differents caracteres morphologiques chez toutes les plantules:
+(2.082904761904765, 'Chlorophyll')
+(8.36201360544219, 'LRLength')
+(5.16264081632653, 'PRLength')
+(0.20671292517006848, 'RootArea')
+(0.11327210884353764, 'ShootArea')
+(1.5876802721088417, 'distanceFromHypocotyl')
+(1.1260653061224488, 'tortuosity')
+
+** requete : SELECT avg(Value), Feature_Id, genotype from Feature f, Seedling s where f.IdSeedling = s.Id and genotype = {gtp} and Feature_Id = {prl} group by Feature_Id 
+Moyenne des longueurs des racines primaires chez Col_0:
+(5.4407634408602155, 'PRLength', 'Col_0')
+
+** requete : SELECT avg(Value), Feature_Id, genotype from Feature f, Seedling s where f.IdSeedling = s.Id and genotype = {gtp} and Feature_Id = {prl} group by Feature_Id
+Moyenne des longueurs des racines primaires chez le mutant nrt:
+(6.867267543859644, 'PRLength', 'nrt')
+
+** requete : SELECT avg(Value), Feature_Id, genotype from Feature f, Seedling s where f.IdSeedling = s.Id and genotype = {gtp} and Feature_Id = {prl} group by Feature_Id
+Moyenne des longueurs des racines primaies chez le mutant pgm:
+(4.39032704402516, 'PRLength', 'pgm')
+
+** requete : SELECT avg(Value), Feature_Id, genotype from Feature f, Seedling s where f.IdSeedling = s.Id and genotype = {gtp} and Feature_Id = {prl} group by Feature_Id
+Moyenne des longueurs des racines primaies chez le mutant sex1:
+(3.202222222222225, 'PRLength', 'sex1')
+
+** requete : SELECT f.IdSeedling, genotype,Feature_Id, MAX(Value), Medium from Feature f, Seedling s, Plate p where Feature_Id = {prl} and f.IdSeedling = p.IdSeedling and f.IdSeedling = s.Id 
+Individu avec les racines primaires les plus longues, et son milieu, et son genotype:
+('S1_12', 'pgm', 'PRLength', 12.402, 'NitrogenDeficiency')
